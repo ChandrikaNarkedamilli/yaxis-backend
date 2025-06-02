@@ -40,6 +40,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/checkout', checkoutRoutes);
 app.use('/api/orders', orderRoutes);
+
 app.post("/api/chat", async (req, res) => {
   const { message } = req.body;
   try {
