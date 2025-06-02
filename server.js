@@ -10,7 +10,22 @@ const orderRoutes = require('./routes/orders');
 
 dotenv.config();
 const app = express();
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://visa-app-rosy.vercel.app',
+];
+// app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+}));
 app.use(express.json());
 
 mongoose.connect(process.env.MONGO_URI, {
